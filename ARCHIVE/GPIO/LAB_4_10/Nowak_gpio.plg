@@ -1,0 +1,51 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Administrator\Documents\PPSW\CURRENT\Nowak_gpio.uvproj
+Project File Date:  03/11/2026
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling main.c...
+main.c(6): warning:  #1294-D: Old-style function Delay
+main.c(23): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=808 RO-data=16 RW-data=0 ZI-data=1256  
+FromELF: creating hex file...
+".\Nowak_gpio.axf" - 0 Errors, 2 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(6): warning:  #1294-D: Old-style function Delay
+main.c(23): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=808 RO-data=16 RW-data=0 ZI-data=1256  
+FromELF: creating hex file...
+".\Nowak_gpio.axf" - 0 Errors, 2 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(11): warning:  #1294-D: Old-style function Delay
+main.c(28): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=808 RO-data=16 RW-data=0 ZI-data=1256  
+FromELF: creating hex file...
+".\Nowak_gpio.axf" - 0 Errors, 2 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(11): warning:  #1294-D: Old-style function Delay
+main.c(28): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=808 RO-data=16 RW-data=0 ZI-data=1256  
+FromELF: creating hex file...
+".\Nowak_gpio.axf" - 0 Errors, 2 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+main.c(11): warning:  #1294-D: Old-style function Delay
+main.c(28): warning:  #1-D: last line of file ends without a newline
+linking...
+Program Size: Code=808 RO-data=16 RW-data=0 ZI-data=1256  
+FromELF: creating hex file...
+".\Nowak_gpio.axf" - 0 Errors, 2 Warning(s).
+Clean started: Project: 'Nowak_gpio'
+   deleting intermediate output files for target 'Target 1'
