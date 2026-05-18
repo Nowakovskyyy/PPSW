@@ -10,8 +10,6 @@
 #define BUT2_bm 0x00000020
 #define BUT3_bm 0x00000080
 
-int iDelayCounter;
-
 
 void Delay(int iTimeInMs){
 	int iCycle;

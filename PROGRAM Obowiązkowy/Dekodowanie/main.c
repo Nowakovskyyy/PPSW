@@ -105,25 +105,34 @@ enum Result eStringToKeyword (char pcStr[],enum KeywordCode *peKeywordCode){
 	
 void DecodeTokens(void){
 
-  unsigned char ucTokenCounter;
-  struct Token *psCurrentToken;
-	char *pcString;
+    unsigned char ucTokenCounter;
+    struct Token *psCurrentToken;
+    char *pcString;
+    
+    // Zmienne pomocnicze, aby nie nadpisywac unii w trakcie sprawdzania
+    enum KeywordCode eTempKeyword;
+    unsigned int uiTempNumber;
 	
-  for(ucTokenCounter = 0; ucTokenCounter < ucTokenNr; ucTokenCounter++){
+    for(ucTokenCounter = 0; ucTokenCounter < ucTokenNr; ucTokenCounter++){
 		
-    psCurrentToken = &asToken[ucTokenCounter];
-		pcString = psCurrentToken->uValue.pcString;
+        psCurrentToken = &asToken[ucTokenCounter];
+        pcString = psCurrentToken->uValue.pcString; // Pobieramy adres stringa
 		
-		if(OK == eStringToKeyword(pcString, &psCurrentToken->uValue.eKeyword)){
-			psCurrentToken->eType = KEYWORD;
-		}
-		else if(OK == eHexStringToUInt(pcString, &psCurrentToken->uValue.uiNumber)){
-			psCurrentToken->eType = NUMBER;
-	  }
-		else{
-			psCurrentToken->eType = STRING;
-		}
-  }
+        // 1. Najpierw sprawdzamy slowa kluczowe do zmiennej tymczasowej
+        if(OK == eStringToKeyword(pcString, &eTempKeyword)){
+            psCurrentToken->uValue.eKeyword = eTempKeyword; // Dopiero teraz przypisujemy
+            psCurrentToken->eType = KEYWORD;
+        }
+        // 2. Potem sprawdzamy liczby do zmiennej tymczasowej
+        else if(OK == eHexStringToUInt(pcString, &uiTempNumber)){
+            psCurrentToken->uValue.uiNumber = uiTempNumber; // Przypisanie niszczy pcString, ale juz go nie potrzebujemy
+            psCurrentToken->eType = NUMBER;
+        }
+        // 3. Jesli nic nie pasuje, zostawiamy jako STRING
+        else{
+            psCurrentToken->eType = STRING;
+        }
+    }
 }
 
 void DecodeMsg(char *pcString){
@@ -134,7 +143,7 @@ void DecodeMsg(char *pcString){
 	
 }
 
-char pcString[]="reset 0x2 woda_gazowana";
+char pcString[]="reset 0x256 woda_gazowana";
 int main(){
 	
 	
