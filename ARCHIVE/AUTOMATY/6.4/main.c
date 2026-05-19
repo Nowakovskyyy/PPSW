@@ -2,7 +2,7 @@
 #include "led.h"
 #include "keyboard.h"
 
-enum LedState {IDLE, STEP_RIGHT, STEP_LEFT};
+enum LedState {IDLE, LED_STEP};
 enum LedState eLedState = IDLE;
 
 void Delay(int iTimeInMs){
@@ -13,37 +13,31 @@ void Delay(int iTimeInMs){
 }
 
 int main() {
+
+	unsigned char ucStepCounter = 0;
 	
 	LedInit(); 
 	KeyboardInit();
 	
 	while(1){
-		Delay(100);
+		Delay(250);
 		
 		switch(eLedState) {
 			case IDLE:
 					if (eKeyboardRead() == BUTTON_0) {
-						eLedState = STEP_LEFT;
-					} else if(eKeyboardRead() == BUTTON_2) {
-						eLedState = STEP_RIGHT;
+						eLedState = LED_STEP;
+						ucStepCounter = 0;
 					} else {
 						eLedState = IDLE;
 					}
 				break;
-			case STEP_LEFT:
-				if (eKeyboardRead() == BUTTON_1) {
-					eLedState = IDLE;
-				} else {
-					LedStepLeft();
-					eLedState = STEP_LEFT;
-				}
-				break;
-			case STEP_RIGHT:
-				if (eKeyboardRead() == BUTTON_1) {
+			case LED_STEP:
+				if (ucStepCounter == 3) {
 					eLedState = IDLE;
 				} else {
 					LedStepRight();
-					eLedState = STEP_RIGHT;
+					ucStepCounter++;
+					eLedState = LED_STEP;
 				}
 				break;
 		}
