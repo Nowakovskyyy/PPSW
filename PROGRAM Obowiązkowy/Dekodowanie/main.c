@@ -104,36 +104,31 @@ enum Result eStringToKeyword (char pcStr[],enum KeywordCode *peKeywordCode){
 
 	
 void DecodeTokens(void){
-
-    unsigned char ucTokenCounter;
-    struct Token *psCurrentToken;
-    char *pcString;
-    
-    // Zmienne pomocnicze, aby nie nadpisywac unii w trakcie sprawdzania
-    enum KeywordCode eTempKeyword;
-    unsigned int uiTempNumber;
+	unsigned char ucTokenCounter;
+	struct Token *psCurrentToken;
 	
-    for(ucTokenCounter = 0; ucTokenCounter < ucTokenNr; ucTokenCounter++){
+	enum KeywordCode eInKeyword;
+	unsigned int uiInValue;
+	
+	for(ucTokenCounter = 0; ucTokenNr > ucTokenCounter; ucTokenCounter++){
+		psCurrentToken = &asToken[ucTokenCounter];
+		//&psCurrentToken -> uValue.eKeyword, 
+		if(OK == eStringToKeyword(psCurrentToken -> uValue.pcString, &eInKeyword)){
+			psCurrentToken -> eType = KEYWORD;
+			psCurrentToken -> uValue.eKeyword = eInKeyword;
+		}
+		//&psCurrentToken -> uValue.uiValue
+		else if(OK == eHexStringToUInt(psCurrentToken -> uValue.pcString, &uiInValue)){
+			psCurrentToken -> eType = NUMBER;
+			psCurrentToken -> uValue.uiNumber = uiInValue;
+		}
 		
-        psCurrentToken = &asToken[ucTokenCounter];
-        pcString = psCurrentToken->uValue.pcString; // Pobieramy adres stringa
-		
-        // 1. Najpierw sprawdzamy slowa kluczowe do zmiennej tymczasowej
-        if(OK == eStringToKeyword(pcString, &eTempKeyword)){
-            psCurrentToken->uValue.eKeyword = eTempKeyword; // Dopiero teraz przypisujemy
-            psCurrentToken->eType = KEYWORD;
-        }
-        // 2. Potem sprawdzamy liczby do zmiennej tymczasowej
-        else if(OK == eHexStringToUInt(pcString, &uiTempNumber)){
-            psCurrentToken->uValue.uiNumber = uiTempNumber; // Przypisanie niszczy pcString, ale juz go nie potrzebujemy
-            psCurrentToken->eType = NUMBER;
-        }
-        // 3. Jesli nic nie pasuje, zostawiamy jako STRING
-        else{
-            psCurrentToken->eType = STRING;
-        }
-    }
+		else{
+			psCurrentToken -> eType = STRING;
+		}
+	}
 }
+
 
 void DecodeMsg(char *pcString){
 	
@@ -143,7 +138,7 @@ void DecodeMsg(char *pcString){
 	
 }
 
-char pcString[]="reset 0x256 woda_gazowana";
+char pcString[]="reset 0x10 woda";
 int main(){
 	
 	
