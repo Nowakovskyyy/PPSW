@@ -112,12 +112,10 @@ void DecodeTokens(void){
 	
 	for(ucTokenCounter = 0; ucTokenNr > ucTokenCounter; ucTokenCounter++){
 		psCurrentToken = &asToken[ucTokenCounter];
-		//&psCurrentToken -> uValue.eKeyword, 
 		if(OK == eStringToKeyword(psCurrentToken -> uValue.pcString, &eInKeyword)){
 			psCurrentToken -> eType = KEYWORD;
 			psCurrentToken -> uValue.eKeyword = eInKeyword;
 		}
-		//&psCurrentToken -> uValue.uiValue
 		else if(OK == eHexStringToUInt(psCurrentToken -> uValue.pcString, &uiInValue)){
 			psCurrentToken -> eType = NUMBER;
 			psCurrentToken -> uValue.uiNumber = uiInValue;

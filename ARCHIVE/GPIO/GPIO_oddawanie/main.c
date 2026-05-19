@@ -77,9 +77,9 @@ enum eKeyboardState {RELEASED, BUTTON_0, BUTTON_1, BUTTON_2, BUTTON_3};
 enum eKeyboardState eKeyboardRead(){
 	if ((IO0PIN & BUT0_bm) == 0) {
         return BUTTON_0;
-    } else if ((IO0PIN & BUT1_bm) == 0) {
+    } else if ((IO0PIN & BUT1_bm) == 0) { //wcisniety 0x00 puszczony 0x40
         return BUTTON_1;
-    } else if ((IO0PIN & BUT2_bm) == 0) {
+    } else if ((IO0PIN & BUT2_bm) == 0) { //wcisniety 0x00 puszczony 0x20
         return BUTTON_2;
     } else if ((IO0PIN & BUT3_bm) == 0) {
         return BUTTON_3;
