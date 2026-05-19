@@ -3,7 +3,7 @@
 
 #include "dekodowanie.h"
 #include "konwersje.h"
-#include "lancuchyznakowe.h"
+#include "lancuchy.h"
 
 void TestOf_CopyString(void) {
   char cString1[] = "Test poprawnosci cop1";
@@ -43,9 +43,9 @@ void TestOf_eCompareString(void) {
 }
 
 void TestOf_AppendString(void) {
-  char cDestinationStr1[] = "test ";
-  char cDestinationStr2[] = "";
-  char cDestinationStr3[] = "test";
+  char cDestinationStr1[40] = "test ";
+  char cDestinationStr2[40] = "";
+  char cDestinationStr3[40] = "test";
   char cSourceStr1[] = "dzialania";
   char cSourceStr2[] = "";
   char cSourceStr3[] = "dzialania";
@@ -178,7 +178,7 @@ void TestOf_eStringToKeyword(void) {
 void TestOf_DecodeTokens(void) {
   char cString[] = "0x10 reset test";
   ucTokenNr = ucFindTokensInString(cString);
-  ReplaceCharactersInString(cString, DELIMITER_CHARACTER, NULL);
+  ReplaceCharactersInString(cString, DELIMITER_CHARACTER, '\0');
   DecodeTokens();
   
   printf("DecodeTokens\n\n ");
@@ -222,4 +222,10 @@ int main() {
   TestOf_eStringToKeyword();
   TestOf_DecodeTokens();
   TestOf_DecodeMsg();
+  
+ return 0;
+ 
+
+
+
 }
