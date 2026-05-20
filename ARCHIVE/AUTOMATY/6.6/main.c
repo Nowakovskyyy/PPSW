@@ -1,7 +1,7 @@
 #include "led.h"
 #include "keyboard.h"
 
-enum LedState {IDLE, STEP_RIGHT, STEP_LEFT, PULSE};
+enum LedState {IDLE, STEP_RIGHT, STEP_LEFT, PULSE, WAIT_STATE};
 enum LedState eLedState = IDLE;
 
 void Delay(int iTimeInMs){
@@ -62,7 +62,14 @@ int main() {
 					}
 					eLedState = PULSE;
 				} else {
+					eLedState = WAIT_STATE;
+				}
+				break;
+			case WAIT_STATE:
+				if(eKeyboardRead() == BUTTON_3) {
 					eLedState = IDLE;
+				} else {
+					eLedState = WAIT_STATE;
 				}
 				break;
 		}
