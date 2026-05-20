@@ -1,6 +1,5 @@
-#include <LPC21xx.H>
-#include "led.h"
-#include "keyboard.h"
+#include "led.h" //stoworzony plik naglowkowy z deklaracjami funkcji do wlaczenia i sterowania ledami
+#include "keyboard.h" //plik naglowkowy z deklaracjiami funckji do wlaczenia i odczuty, zawiera typ enum zawierajacy stan klawiatury
 
 void Delay(int iTimeInMs){
 	int iCycle;

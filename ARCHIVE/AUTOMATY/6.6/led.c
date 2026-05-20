@@ -29,6 +29,8 @@ void LedOn(unsigned char ucLedIndeks) {
 		case 3:
 			IO1SET = LED3_bm;
 			break;
+		case 4:
+			IO1CLR = LED0_bm | LED1_bm | LED2_bm | LED3_bm;
 		default:
 			break;
 	}

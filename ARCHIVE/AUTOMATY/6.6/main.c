@@ -1,8 +1,7 @@
-#include <LPC21xx.H>
 #include "led.h"
 #include "keyboard.h"
 
-enum LedState {IDLE, STEP_RIGHT, STEP_LEFT};
+enum LedState {IDLE, STEP_RIGHT, STEP_LEFT, PULSE};
 enum LedState eLedState = IDLE;
 
 void Delay(int iTimeInMs){
@@ -14,6 +13,8 @@ void Delay(int iTimeInMs){
 
 int main() {
 	
+	unsigned char ucPulseCounter =0;
+	unsigned char ucPulseNumber = 8;
 	LedInit(); 
 	KeyboardInit();
 	
@@ -26,6 +27,9 @@ int main() {
 						eLedState = STEP_LEFT;
 					} else if(eKeyboardRead() == BUTTON_2) {
 						eLedState = STEP_RIGHT;
+					}else if(eKeyboardRead() == BUTTON_3) {
+						ucPulseCounter = 0;
+						eLedState = PULSE;
 					} else {
 						eLedState = IDLE;
 					}
@@ -44,6 +48,19 @@ int main() {
 				} else {
 					LedStepRight();
 					eLedState = STEP_RIGHT;
+				}
+				break;
+			case PULSE:
+				if(ucPulseCounter < ucPulseNumber*2) {
+					ucPulseCounter++;
+					if(ucPulseCounter%2 == 0) {
+						LedOn(0);
+					} else {
+						LedOn(4);
+					}
+					eLedState = PULSE;
+				} else {
+					eLedState = IDLE;
 				}
 				break;
 		}
