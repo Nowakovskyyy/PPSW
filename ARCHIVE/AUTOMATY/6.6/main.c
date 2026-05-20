@@ -15,6 +15,7 @@ int main() {
 	
 	unsigned char ucPulseCounter =0;
 	unsigned char ucPulseNumber = 8;
+	unsigned char ucCurrentIndeks;
 	LedInit(); 
 	KeyboardInit();
 	
@@ -28,6 +29,7 @@ int main() {
 					} else if(eKeyboardRead() == BUTTON_2) {
 						eLedState = STEP_RIGHT;
 					}else if(eKeyboardRead() == BUTTON_3) {
+						ucCurrentIndeks = ucGetCurrentIndeks();
 						ucPulseCounter = 0;
 						eLedState = PULSE;
 					} else {
@@ -54,7 +56,7 @@ int main() {
 				if(ucPulseCounter < ucPulseNumber*2) {
 					ucPulseCounter++;
 					if(ucPulseCounter%2 == 0) {
-						LedOn(0);
+						LedOn(ucCurrentIndeks);
 					} else {
 						LedOn(4);
 					}

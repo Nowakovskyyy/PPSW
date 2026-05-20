@@ -35,17 +35,16 @@ void LedOn(unsigned char ucLedIndeks) {
 			break;
 	}
 }
+unsigned char ucLedIndeks = 0;
 
 void LedStep(enum eStepDir Step){
 	
-	static unsigned int uiLedIndeks = 0;
-	
 	if(Step == RIGHT) {
-		uiLedIndeks ++;
+		ucLedIndeks ++;
 	} else if (Step== LEFT) {
-		uiLedIndeks --;
+		ucLedIndeks --;
 	}
-	LedOn(uiLedIndeks % 4);
+	LedOn(ucLedIndeks % 4);
 }
 
 void LedStepLeft(void) {
@@ -54,4 +53,8 @@ void LedStepLeft(void) {
 
 void LedStepRight(void) {
 	LedStep(RIGHT);
+}
+
+unsigned char ucGetCurrentIndeks(void) {
+	return (unsigned char)(ucLedIndeks%4);
 }
